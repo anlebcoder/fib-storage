@@ -1,0 +1,79 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "fib-storage@0.0.6",
+        "scope": null,
+        "escapedName": "fib-storage",
+        "name": "fib-storage",
+        "rawSpec": "0.0.6",
+        "spec": "0.0.6",
+        "type": "version"
+      },
+      "/Users/Anleb/fibos/otc/otc_server"
+    ]
+  ],
+  "_from": "fib-storage@0.0.6",
+  "_id": "fib-storage@0.0.6",
+  "_inCache": true,
+  "_location": "/fib-storage",
+  "_nodeVersion": "6.10.1",
+  "_npmUser": {
+    "name": "anleb",
+    "email": "an.wu@d3j.io"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "fib-storage@0.0.6",
+    "scope": null,
+    "escapedName": "fib-storage",
+    "name": "fib-storage",
+    "rawSpec": "0.0.6",
+    "spec": "0.0.6",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://pm.d3j.io/file/fib-storage/0.0.6.tgz",
+  "_shasum": "ea6faac47b8cc3f9f57cabf9febb5759facd37ea",
+  "_shrinkwrap": null,
+  "_spec": "fib-storage@0.0.6",
+  "_where": "/Users/Anleb/fibos/otc/otc_server",
+  "author": {
+    "name": "yang.yu@d3j.io"
+  },
+  "dependencies": {},
+  "description": "reademe",
+  "devDependencies": {
+    "fib-pool": "^1.0.5"
+  },
+  "dist": {
+    "shasum": "ea6faac47b8cc3f9f57cabf9febb5759facd37ea",
+    "tarball": "http://pm.d3j.io/file/fib-storage/0.0.6.tgz"
+  },
+  "gitHead": "e7c9b8dd4dfc169585d2614d9c0fa350b9a8c17a",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "anleb",
+      "email": "an.wu@d3j.io"
+    }
+  ],
+  "name": "fib-storage",
+  "optionalDependencies": {},
+  "readme": "fib-storage\n===\n支持 文件、图片的存储、上传、过滤器显示\n\n\n\n## Install\n\n```bash\n$ npm install fib-storage\n```\n\n\n\n## Usage\n\n- 实例化\n\n    - conn数据库对象方式\n\n        ```\n        const FibStorage = require(\"fib-storage\");\n        const Db = require(\"db\");\n        const conn = Db.open(\"sqlie:./test.db\");\n        const fibStorage = new FibStorage(conn);\n        ```\n\n    - pool对象方式\n\n        ```\n        const FibStorage = require(\"fib-storage\");\n        const Pool = require(\"fib-pool\");\n        const Db = require(\"db\");\n\n        const fibStorage = new FibStorage(Pool(function() {\n            return Db.open(\"sqlite:./test.db\")\n        }));\n        ```\n\n- 选项参数\n\n    - imgMaxSize: Number,  图片最大上传尺寸 单位byte 默认10mb\n\n\n\n\n## Api\n\n```\nfibStorage.fileProc(req); //图片上传、下载（根据请求方式区分，POST为上传，GET为下载）\n\nfibStorage.setup(); //初始化表\n\nfibStorage.put(v, type, extend); //写入数据，返回文件的hash值\n\nfibStorage.get(k); //获取文件\n\nfibStorage.getInfo(k); //只获取文件信息\n\nfibStorage.getValue(k); //只获取文件流数据\n\nfibStorage.remove(k); //删除某行\n```\n\n\n\n## url2storage\n\n根据url过滤图片 \n\n- 规则\n\n    **/hash value.filter.exten**\n\n    eg. ``` /4adfd9f2c8e6a62efd36a4f2aceb3f57.g50.jpg ```\n\n    ​\n\n- 支持列表（陆续更新）\n\n    1. 原图（quality默认70）\n        ```\n        /${hash}.jpg\n        ```\n\n    2. 拼图 （多个hash以 , 隔开 最多支持4张）\n\n        ```\n        /${hash},${hash},${hash},${hash}.jpg\n        ```\n\n    3. q 图片质量（默认70）\n\n        ```\n        /${hash}.q80.jpg\n        ```\n\n    3. t 缩略图\n\n        ```\n        /${hash}.t50x50.jpg\n        ```\n\n    3. g 高斯模糊\n\n        ```\n        /${hash}.g50.jpg\n        ```\n\n    4. o 剪切\n\n        ```\n        /${hash}.o150x200.jpg\n        ```\n\n    5. pr 渐进式（扩展名为jpg时默认\n\n        ```\n        /${hash}.pr.jpg\n        ```\n\n    7. wb 由下往上画矩形\n\n        ```\n        /${hash}.wb200.jpg\n        ```\n    8. et 按a*b的范围,等比例缩略图\n\n        ```\n        /${hash}.et50x50.jpg\n        ```\n\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.d3j.io:fibjs/fib-storage.git"
+  },
+  "scripts": {
+    "test": "fibjs test.js"
+  },
+  "version": "0.0.6"
+}
